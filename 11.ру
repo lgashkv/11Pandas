@@ -1,0 +1,35 @@
+#Задание 1
+Скачайте с сайта https://grouplens.org/datasets/movielens/ датасет любого размера. Определите какому фильму было выставлено больше всего оценок 5.0.
+import pandas as pd
+ratings = pd.read_csv('C:\\Users\\Ольга\\Desktop\\Phyton\\ratings.csv')
+filtered_ratings = ratings[ (ratings['rating'] == 5)]
+filtered_ratings['count_rating'] = filtered_ratings.groupby(['movieId'])['rating'].count()
+filtered_ratings.sort_values(by='count_rating', ascending=False).head(1)
+
+#код вроде бы работает, показывает результат. Но при этом вылезает следующее:
+<ipython-input-29-13048611efae>:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  filtered_ratings['count_rating'] = filtered_ratings.groupby(['movieId'])['rating'].count()
+
+#Задание 2
+По данным файла power.csv посчитайте суммарное потребление стран Прибалтики (Латвия, Литва и Эстония) категорий 4, 12 и 21 за период с 2005 по 2010 года. Не учитывайте в расчетах отрицательные значения quantity.
+
+import pandas as pd
+contacts = pd.read_csv('C:\\Users\\Ольга\\Desktop\\Phyton\\power.csv')
+filtered_contacts = contacts[ (contacts.country.isin(['Estonia','Latvia','Lithuania'])) & (contacts['year'] >= 2005) & (contacts['year'] <= 2010) & (contacts.category.isin([4,12,21])) & (contacts['quantity'] > 0)]
+filtered_contacts['quantity'].sum()
+
+#Задание 3
+Выберите страницу любого сайта с табличными данными. Импортируйте таблицы в pandas dataframe.
+
+pd.read_html('https://fortrader.org/quotes')[0]
+pd.read_html('https://fortrader.org/quotes')[1]
+pd.read_html('https://fortrader.org/quotes')[2]
+pd.read_html('https://fortrader.org/quotes')[3]
+pd.read_html('https://fortrader.org/quotes')[4]
+pd.read_html('https://fortrader.org/quotes')[5]
+pd.read_html('https://fortrader.org/quotes')[6]
+pd.read_html('https://fortrader.org/quotes')[7]
